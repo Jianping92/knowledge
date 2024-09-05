@@ -16,17 +16,13 @@ function filterAndAppend(url, keepParams = [], extraParams = {}) {
     }
   }
 
+  // 清空原有的参数
+  urlObj.search = '';
+
   // 将保留的参数重新设置到URL对象上
   for (let key in filteredParams) {
-    urlObj.searchParams.set(key, filteredParams[key]);
+    urlObj.searchParams.append(key, filteredParams[key]);
   }
-
-  // 清除原有的参数
-  urlObj.searchParams.forEach((value, key) => {
-    if (!filteredParams.hasOwnProperty(key)) {
-      urlObj.searchParams.delete(key);
-    }
-  });
 
   // 追加额外参数
   for (let key in extraParams) {
